@@ -43,8 +43,7 @@ func getIPHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-	clientIP := strings.Split(r.RemoteAddr, ":")[0]
+	clientIP := readUserIP(r)
 
 	w.WriteHeader(http.StatusOK)
 	_, writeErr := w.Write([]byte(clientIP))
@@ -52,4 +51,15 @@ func getIPHandler(w http.ResponseWriter, r *http.Request) {
 	if writeErr != nil {
 		log.Printf("Error on answer")
 	}
+}
+
+func readUserIP(r *http.Request) string {
+    IPAddress := r.Header.Get("X-Real-Ip")
+    if IPAddress == "" {
+        IPAddress = r.Header.Get("X-Forwarded-For")
+    }
+    if IPAddress == "" {
+        IPAddress = strings.Split(r.RemoteAddr, ":")[0]
+    }
+    return IPAddress
 }
