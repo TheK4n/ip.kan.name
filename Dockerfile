@@ -16,4 +16,4 @@ COPY --from=builder /app/ip /app/ip
 
 EXPOSE 80
 
-CMD ["/app/paste"]
+CMD ["/app/ip"]
