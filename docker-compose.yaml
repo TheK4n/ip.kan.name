@@ -1,0 +1,16 @@
+services:
+  ip:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: 'thek4n/ip'
+
+    pull_policy: build
+
+    container_name: 'ip'
+
+    ports:
+      - 8080:80
+
+    restart: always
